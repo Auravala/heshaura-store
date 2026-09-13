@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 37 48% 94%;
+        --foreground: 20 6% 9%;
+        --card: 45 100% 99%;
+        --card-foreground: 20 6% 9%;
+        --popover: 45 100% 99%;
+        --popover-foreground: 20 6% 9%;
+        --primary: 20 68% 51%;
+        --primary-foreground: 37 48% 97%;
+        --secondary: 33 30% 90%;
+        --secondary-foreground: 20 6% 9%;
+        --muted: 33 27% 90%;
+        --muted-foreground: 25 5% 45%;
+        --accent: 33 27% 88%;
+        --accent-foreground: 20 6% 9%;
+        --destructive: 0 72% 45%;
+        --destructive-foreground: 37 48% 97%;
+        --border: 33 27% 86%;
+        --input: 33 27% 80%;
+        --ring: 20 68% 51%;
+        --radius: 0.25rem;
+
+        --brand-orange: #D7602B;
+        --brand-orange-hover: #B84A1D;
+        --brand-cream: #F7F1E8;
+        --brand-surface: #FFFDF9;
+        --brand-charcoal: #1C1917;
+        --brand-stone: #78716C;
+        --brand-sand: #E5DCD0;
+        --brand-gold: #D4A359;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-background text-foreground font-sans;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection {
+        background-color: var(--brand-orange);
+        color: var(--brand-cream);
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

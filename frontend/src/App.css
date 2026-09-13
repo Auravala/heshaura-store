@@ -1,0 +1,5 @@
+/* HESHAURA — global app styles. Theme lives in index.css + tailwind.config.js */
+.App {
+    min-height: 100vh;
+    background-color: var(--brand-cream);
+}

@@ -1,0 +1,158 @@
+{
+  "app_identity": {
+    "name": "HESHAURA",
+    "tagline": "A Piece of Soul. A Part of Your Aura.",
+    "brand_ethos": "Premium handmade editorial luxury jewellery inspired by artisanal mastery, organic metal forms, and high-level editorial storytelling.",
+    "target_audience": "Connoisseurs of artisanal, investment-grade handmade jewellery seeking personal storytelling and spiritual luxury."
+  },
+  "theme": {
+    "mode": "light_only",
+    "palette": {
+      "primary_orange": "#D7602B",
+      "primary_orange_hover": "#B84A1D",
+      "warm_off_white": "#F7F1E8",
+      "surface_cream": "#FFFDF9",
+      "deep_charcoal": "#1C1917",
+      "muted_stone": "#78716C",
+      "border_sand": "#E5DCD0",
+      "gold_accent": "#D4A359"
+    },
+    "forbidden_styles": [
+      "dark_mode",
+      "neon_colors",
+      "glassmorphism",
+      "cheap_gradients",
+      "inter_font_for_headings",
+      "generic_tech_blue",
+      "inter everywhere"
+    ]
+  },
+  "typography": {
+    "heading_font": "Playfair Display, Cormorant Garamond, serif",
+    "body_font": "Plus Jakarta Sans, DM Sans, sans-serif",
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-serif tracking-tight leading-tight text-[#1C1917]",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-serif tracking-tight text-[#1C1917]",
+      "h3": "text-xl sm:text-2xl font-serif text-[#1C1917]",
+      "h4": "text-lg font-serif text-[#1C1917]",
+      "overlines": "text-xs uppercase tracking-[0.25em] font-semibold text-[#D7602B]",
+      "body": "text-base leading-relaxed text-[#1C1917]/80 font-sans"
+    }
+  },
+  "layout_and_spacing": {
+    "philosophy": "Editorial luxury whitespace with 2x-3x standard padding, strict asymmetrical grids, clear optical alignment, and high-density product discovery.",
+    "container_max_width": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-16 sm:py-24 lg:py-32"
+  },
+  "key_sections": [
+    {
+      "id": "announcement_bar",
+      "description": "Top bar featuring 33% OFF FIRST ORDER promo code and express delivery promise in HESHAURA signature orange (#D7602B)."
+    },
+    {
+      "id": "sticky_luxury_header",
+      "description": "Sticky luxury header with off-white solid background (#F7F1E8), border-b (#E5DCD0), brand logo, mega menu dropdown, search bar trigger, wallet balance widget, bag counter, mobile menu toggle."
+    },
+    {
+      "id": "mega_menu",
+      "description": "Editorial mega menu popping up on hover with categorized links (Rings, Necklaces, Bangles, Heirloom Sets, Fine Gemstones), editorial story teaser, and featured seasonal piece."
+    },
+    {
+      "id": "mobile_menu_drawer",
+      "description": "Full-screen responsive drawer for mobile navigation, search input, wallet preview badge, category breakdown, customer service links."
+    },
+    {
+      "id": "hero_section",
+      "description": "Bold editorial hero with main title 'JEWELLERY WITH A SOUL.', subtitle tagline, '33% OFF FIRST ORDER' subtle accent badge, high-res lifestyle portrait, dual CTAs ('Explore Craftsmanship' & 'Shop Bestsellers')."
+    },
+    {
+      "id": "collections_bento_grid",
+      "description": "Asymmetric Bento showcase of core collections: 'Solace Rings', 'Kinship Bangles', 'Ethereal Necklaces', 'Aura Earrings', 'Artisanal Heirloom Sets'."
+    },
+    {
+      "id": "bestsellers_carousel_grid",
+      "description": "Interactive product showcase with image hover zoom, price display in INR (₹), hand-forged remaining stock indicators, 'Quick View' modal trigger, and 'Add to Bag' button."
+    },
+    {
+      "id": "brand_manifesto",
+      "description": "Editorial quote block over tactile studio background highlighting the HESHAURA philosophy: 'We don't manufacture. We forge stories, layer by layer, in silver and fire.'"
+    },
+    {
+      "id": "craftsmanship_ritual",
+      "description": "Four-stage interactive or visual ritual breakdown: '01. Hand-wax Moulding', '02. Chased Metal Sculpting', '03. Ethical Stone Setting', '04. Aura Polishing'."
+    },
+    {
+      "id": "materials_ethics",
+      "description": "Grid of ethical standards: Recycled 925 Sterling Silver, 18K Solid Gold Accents, Fair-Trade Natural Gemstones, Zero-Waste Artisanal Studio."
+    },
+    {
+      "id": "new_arrivals",
+      "description": "Grid of latest hand-forged releases with badging ('New Drop', 'Limited Release') and quick interactive preview."
+    },
+    {
+      "id": "wallet_preview",
+      "description": "Interactive HESHAURA Wallet Card simulation showing ₹333 Welcome Credit, referral reward breakdown, and quick apply toggle."
+    },
+    {
+      "id": "referral_preview",
+      "description": "High-impact card highlighting 'Refer a Friend → Earn ₹333 HESHAURA Wallet', with instant copy-link button and reward calculator."
+    },
+    {
+      "id": "gifting_experience",
+      "description": "Bespoke gift packaging toggle, custom handwritten note preview box, digital gift card option."
+    },
+    {
+      "id": "our_story",
+      "description": "Founder's editorial narrative, artisan workshop photo, commitment to preserving traditional gold-smithing skills."
+    },
+    {
+      "id": "newsletter_inner_circle",
+      "description": "Clean signup form with instant reward callout: 'Join the Inner Circle & Unlock ₹333 in your Heshaura Wallet'."
+    },
+    {
+      "id": "luxury_footer",
+      "description": "Editorial multi-column footer with huge bold serif 'HESHAURA' watermark, currency selector, ethics guarantee, social links, legal info."
+    }
+  ],
+  "image_urls": {
+    "hero_portrait": "https://images.unsplash.com/photo-1585960622850-ed33c41d6418?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMGdvbGQlMjBqZXdlbHJ5JTIwbHV4dXJ5JTIwZWRpdG9yaWFsfGVufDB8fHx8MTc4OTMzMDIyOHww&ixlib=rb-4.1.0&q=85",
+    "collection_rings": "https://images.unsplash.com/photo-1682823545338-96b6ac5802da?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHw0fHxoYW5kbWFkZSUyMGdvbGQlMjBqZXdlbHJ5JTIwbHV4dXJ5JTIwZWRpdG9yaWFsfGVufDB8fHx8MTc4OTMzMDIyOHww&ixlib=rb-4.1.0&q=85",
+    "collection_necklaces": "https://images.unsplash.com/photo-1620656798579-1984d9e87df7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxhcnRpc2FuJTIwZ29sZCUyMG5lY2tsYWNlJTIwcmluZyUyMGNyYWZ0c21hbnxlbnwwfHx8fDE3ODkzMzAyMjh8MA&ixlib=rb-4.1.0&q=85",
+    "collection_bangles": "https://images.unsplash.com/photo-1608042314453-ae338d80c427?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwyfHxoYW5kbWFkZSUyMGdvbGQlMjBqZXdlbHJ5JTIwbHV4dXJ5JTIwZWRpdG9yaWFsfGVufDB8fHx8MTc4OTMzMDIyOHww&ixlib=rb-4.1.0&q=85",
+    "craftsman_tool": "https://images.unsplash.com/photo-1626252685663-64c6bf60afb1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwzfHxhcnRpc2FuJTIwZ29sZCUyMG5lY2tsYWNlJTIwcmluZyUyMGNyYWZ0c21hbnxlbnwwfHx8fDE3ODkzMzAyMjh8MA&ixlib=rb-4.1.0&q=85",
+    "craftsman_hands": "https://images.unsplash.com/photo-1599071338288-49173359e0fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwyfHxhcnRpc2FuJTIwZ29sZCUyMG5lY2tsYWNlJTIwcmluZyUyMGNyYWZ0c21hbnxlbnwwfHx8fDE3ODkzMzAyMjh8MA&ixlib=rb-4.1.0&q=85",
+    "model_editorial": "https://images.unsplash.com/photo-1731085812002-78c041febf45?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHw0fHxhcnRpc2FuJTIwZ29sZCUyMG5lY2tsYWNlJTIwcmluZyUyMGNyYWZ0c21hbnxlbnwwfHx8fDE3ODkzMzAyMjh8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "testing_and_accessibility": {
+    "data_testid_convention": "kebab-case, role-based, unique for interactive components",
+    "required_data_testids": [
+      "announcement-bar",
+      "header-logo",
+      "mega-menu-trigger",
+      "mobile-menu-button",
+      "search-trigger-button",
+      "wallet-preview-badge",
+      "bag-button",
+      "hero-primary-cta",
+      "hero-secondary-cta",
+      "collection-card-solace-rings",
+      "bestsellers-tab-all",
+      "bestseller-product-card",
+      "quick-view-button",
+      "add-to-bag-button",
+      "referral-copy-button",
+      "wallet-claim-button",
+      "gifting-toggle-note",
+      "newsletter-email-input",
+      "newsletter-submit-button"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build a single-page high-end editorial homepage using React, Tailwind CSS, Lucide icons, Framer Motion, and Sonner toasts.",
+    "Enforce the exact color palette: Primary Orange #D7602B, Warm Off-White #F7F1E8, Deep Charcoal #1C1917, Surface Cream #FFFDF9, Sand Border #E5DCD0.",
+    "Ensure headings use elegant serif fonts (Playfair Display / Cormorant Garamond style) and body text uses clean sans-serif.",
+    "Implement interactive states: Mega menu hover flyout, product Quick View modal, Cart drawer simulation, Wallet balance modal, Copy-to-clipboard toast for Referral link, and Toast feedback for Newsletter subscription.",
+    "Ensure all interactive elements have data-testid attributes.",
+    "Keep the app fully responsive and mobile-first, ensuring smooth mobile menu navigation."
+  ]
+}
