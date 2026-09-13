@@ -14,7 +14,7 @@ export const Newsletter = () => {
       return;
     }
     toast.success("Welcome to the Inner Circle.", {
-      description: `${BRAND.referralReward} wallet credit will unlock with your account.`,
+      description: "You're on the list — studio stories and private previews, first.",
     });
     setEmail("");
   };
@@ -25,7 +25,7 @@ export const Newsletter = () => {
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-orange">The Inner Circle</p>
           <h2 className="mt-4 font-serif text-3xl tracking-tight text-brand-charcoal sm:text-4xl text-balance">
-            Join the Inner Circle & unlock {BRAND.referralReward} in your HESHAURA Wallet.
+            Join the Inner Circle for first word on new drops.
           </h2>
           <p className="mt-4 text-sm text-brand-stone">
             First word on new drops, studio stories, and private previews. No noise — we make jewellery, not spam.

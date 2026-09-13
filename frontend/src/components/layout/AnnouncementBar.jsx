@@ -8,7 +8,7 @@ export const AnnouncementBar = () => (
   >
     <Sparkles className="h-3.5 w-3.5 text-brand-cream" aria-hidden="true" />
     <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-cream">
-      {BRAND.offer} · Complimentary insured shipping across India
+      {BRAND.offer} · Handcrafted in small batches
     </p>
   </div>
 );

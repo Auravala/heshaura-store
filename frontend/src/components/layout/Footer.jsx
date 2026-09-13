@@ -8,7 +8,7 @@ const COLUMNS = [
   },
   {
     title: "The House",
-    links: ["Our Story", "Craftsmanship", "Materials & Ethics", "Journal", "Careers"],
+    links: ["Our Story", "Craftsmanship", "Materials & Craft", "Journal", "Careers"],
   },
   {
     title: "Care",
@@ -45,7 +45,7 @@ export const Footer = () => (
             ))}
           </div>
           <p className="mt-8 text-[11px] uppercase tracking-[0.18em] text-brand-stone">
-            Handcrafted in India · Insured worldwide shipping
+            Handcrafted jewellery · Made in small batches
           </p>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">

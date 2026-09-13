@@ -13,7 +13,7 @@ export const Craftsmanship = () => (
             <SectionHeading
               overline="The Ritual"
               title="Four stages. One pair of hands."
-              text="From wax to aura polish, every HESHAURA piece follows the same unhurried ritual our artisans have practised for decades."
+              text="From wax to final polish, every HESHAURA piece follows the same unhurried ritual at the heart of our studio."
             />
           </Reveal>
           <Reveal delay={0.15} className="mt-10">

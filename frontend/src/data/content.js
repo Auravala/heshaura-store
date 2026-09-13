@@ -77,7 +77,7 @@ export const BESTSELLERS = [
     name: "Solace Signet Ring",
     price: 4850,
     mrp: 7200,
-    material: "Recycled 925 Silver · 18K Gold",
+    material: "Sterling Silver · Gold Accents",
     stock: 6,
   },
   {
@@ -85,7 +85,7 @@ export const BESTSELLERS = [
     name: "Kinship Cuff Bangle",
     price: 6200,
     mrp: 8900,
-    material: "Hand-chased Sterling Silver",
+    material: "Hand-Finished Sterling Silver",
     stock: 4,
   },
   {
@@ -93,7 +93,7 @@ export const BESTSELLERS = [
     name: "Ethereal Chain Necklace",
     price: 9400,
     mrp: 12500,
-    material: "18K Gold Vermeil",
+    material: "Gold Vermeil",
     stock: 3,
   },
   {
@@ -101,7 +101,7 @@ export const BESTSELLERS = [
     name: "Aura Drop Earrings",
     price: 3950,
     mrp: 5600,
-    material: "Recycled Silver · Citrine",
+    material: "Sterling Silver · Citrine",
     stock: 8,
   },
 ];
@@ -142,12 +142,12 @@ export const CRAFT_STAGES = [
   {
     step: "02",
     title: "Chased Metal Sculpting",
-    text: "Recycled silver and gold are chased, hammered and annealed until the metal holds its story.",
+    text: "Silver and gold are chased, hammered and annealed until the metal holds its story.",
   },
   {
     step: "03",
-    title: "Ethical Stone Setting",
-    text: "Fair-trade stones are set one at a time, under magnification, by a single artisan's hands.",
+    title: "Stone Setting",
+    text: "Each stone is set one at a time, with care, by a single artisan's hands.",
   },
   {
     step: "04",
@@ -158,20 +158,20 @@ export const CRAFT_STAGES = [
 
 export const MATERIALS = [
   {
-    title: "Recycled 925 Sterling Silver",
-    text: "Refined from reclaimed metal, assayed and hallmarked in-house.",
+    title: "925 Sterling Silver",
+    text: "A timeless, durable metal with a soft, luminous finish.",
   },
   {
-    title: "18K Solid Gold Accents",
-    text: "Responsibly sourced gold, worked in small studio batches.",
+    title: "Gold Accents",
+    text: "Warm gold detailing, worked in small studio batches.",
   },
   {
-    title: "Fair-Trade Natural Gemstones",
-    text: "Traceable stones from audited, small-scale mines.",
+    title: "Natural Gemstones",
+    text: "Stones chosen for their colour, character and depth.",
   },
   {
-    title: "Zero-Waste Artisanal Studio",
-    text: "Every filing is reclaimed. Every offcut is reforged.",
+    title: "Artisanal Studio",
+    text: "Every piece is finished by hand, one bench at a time.",
   },
 ];
 

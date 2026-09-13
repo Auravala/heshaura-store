@@ -12,11 +12,11 @@ export const WalletPreview = () => (
           <SectionHeading
             overline="HESHAURA Wallet"
             title="Store credit with a soul of its own."
-            text="A promotional wallet that grows as you share the aura. Credit is earned through referrals and welcomes — never purchased, never withdrawn, always yours to spend here."
+            text="A promotional wallet that grows as you share the aura. Credit is earned through referrals — never purchased, never withdrawn, always yours to spend here."
           />
           <ul className="mt-8 space-y-4">
             {[
-              `${BRAND.referralReward} welcome credit when you join the Inner Circle`,
+              "Earned through referrals and special promotions",
               `${BRAND.referralReward} for every friend whose first order is delivered`,
               "Applies automatically at checkout — up to 25% of your cart",
             ].map((t) => (
@@ -32,7 +32,7 @@ export const WalletPreview = () => (
             data-testid="wallet-claim-button"
             className="mt-10 bg-brand-charcoal px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-brand-cream transition-colors hover:bg-brand-orange"
           >
-            Claim {BRAND.referralReward} Welcome Credit
+            Join the Inner Circle
           </button>
         </Reveal>
         <Reveal delay={0.15}>

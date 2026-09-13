@@ -26,25 +26,24 @@ export const OurStory = () => (
           <Reveal delay={0.1}>
             <div className="mt-6 space-y-5 text-base leading-relaxed text-brand-stone">
               <p>
-                HESHAURA began with a borrowed torch, a block of reclaimed silver, and a belief
+                HESHAURA began with a borrowed torch, a block of silver, and a belief
                 that jewellery should mean something before it shines. What started as one
-                artisan's evening practice is now a small studio of master goldsmiths — and
+                artisan's evening practice is now a small studio of goldsmiths — and
                 we have kept it small on purpose.
               </p>
               <p>
-                Every collection is forged in limited runs, numbered and hallmarked, using
-                techniques that take decades to learn and hours to execute. We preserve
-                traditional hand-chasing and stone-setting not out of nostalgia, but because
-                no machine has yet learned to put soul into metal.
+                Every collection is forged in limited runs, using techniques that take
+                years to learn and hours to execute. We work by hand not out of nostalgia,
+                but because no machine has yet learned to put soul into metal.
               </p>
             </div>
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-10 grid grid-cols-3 gap-6 border-t border-brand-sand pt-8">
               {[
-                ["12", "Master artisans"],
-                ["100%", "Recycled silver"],
-                ["1", "Bench per piece"],
+                ["Hand", "Forged, always"],
+                ["Small", "Batch runs"],
+                ["One", "Piece at a time"],
               ].map(([num, label]) => (
                 <div key={label}>
                   <p className="font-serif text-3xl text-brand-orange sm:text-4xl">{num}</p>

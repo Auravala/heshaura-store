@@ -25,8 +25,8 @@ export const Hero = () => (
             WITH A <span className="italic text-brand-orange">SOUL.</span>
           </h1>
           <p className="mt-6 max-w-md text-base leading-relaxed text-brand-stone sm:text-lg">
-            {BRAND.tagline} Hand-forged in small batches from recycled silver and
-            responsibly sourced gold — pieces that carry meaning, not just shine.
+            {BRAND.tagline} Hand-forged in small batches and finished by hand —
+            pieces that carry meaning, not just shine.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <a
@@ -63,8 +63,8 @@ export const Hero = () => (
             className="shadow-[0_40px_80px_-40px_rgba(28,25,23,0.35)]"
           />
           <div className="absolute -bottom-5 -left-5 hidden bg-brand-surface px-6 py-4 shadow-[0_16px_40px_-16px_rgba(28,25,23,0.3)] sm:block">
-            <p className="font-serif text-2xl text-brand-charcoal">300+</p>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-brand-stone">Artisan hours per drop</p>
+            <p className="font-serif text-2xl text-brand-charcoal">By Hand</p>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-brand-stone">Finished one piece at a time</p>
           </div>
         </motion.div>
       </div>
@@ -73,7 +73,7 @@ export const Hero = () => (
       <div className="flex w-max animate-marquee gap-12 whitespace-nowrap">
         {Array.from({ length: 2 }).map((_, i) => (
           <div key={i} className="flex gap-12">
-            {["Hand-Forged", "Recycled 925 Silver", "Fair-Trade Gemstones", "Small Batch", "Heirloom Grade", "Zero-Waste Studio"].map((t) => (
+            {["Hand-Forged", "Premium Materials", "Small Batch", "Made to Order", "Timeless Design", "Gift Ready"].map((t) => (
               <span key={t} className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-stone">
                 <span className="h-1 w-1 rounded-full bg-brand-orange" />
                 {t}

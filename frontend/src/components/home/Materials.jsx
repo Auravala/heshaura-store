@@ -7,7 +7,7 @@ export const Materials = () => (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <Reveal>
         <SectionHeading
-          overline="Materials & Ethics"
+          overline="Materials & Craft"
           title="What we work with — and what we refuse to."
           align="center"
         />
