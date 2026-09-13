@@ -135,10 +135,11 @@ export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header
-      className="sticky top-0 z-40 border-b border-brand-sand bg-brand-cream/95 backdrop-blur-sm"
-      onMouseLeave={() => setMegaOpen(false)}
-    >
+    <>
+      <header
+        className="sticky top-0 z-40 border-b border-brand-sand bg-brand-cream/95 backdrop-blur-sm"
+        onMouseLeave={() => setMegaOpen(false)}
+      >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         <button
           type="button"
@@ -217,7 +218,8 @@ export const Header = () => {
           </button>
         </div>
       </div>
+      </header>
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
-    </header>
+    </>
   );
 };
