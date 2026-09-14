@@ -31,5 +31,5 @@ Account 1+2 code imported from https://github.com/Auravala/heshaura-store @ cd98
 - **P2:** Admin/CMS for products; wishlist; recently viewed; email/SMS notifications; image pipeline for real product photos (ImageSlot srcs are placeholders by design).
 
 ## Notes / Risks
-- Seed runs on every backend startup by design (idempotent; spec: "single source to rebuild DB"). Before real catalog edits live in DB, gate startup seeding behind an env flag.
+- Startup product seeding is gated behind `SEED_PRODUCTS_ON_STARTUP` (default `false`): when false, startup never overwrites product data; when true, the idempotent Account 2 seed/parity process runs. Manual `python3 seed.py` remains available anytime.
 - Dev fallback masks API outages in dev/preview (per confirmed decision); off in production builds.

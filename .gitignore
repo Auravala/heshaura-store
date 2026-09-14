@@ -7,7 +7,7 @@ memory/test_credentials.md
 
 # Test run artifacts (may contain credentials)
 test_reports/iteration_*.json
-test_reports/pytest/pytest_results.xml
+test_reports/pytest/pytest_results*.xml
 
 # IDE and editors
 .idea/

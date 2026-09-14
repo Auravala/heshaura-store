@@ -12,7 +12,7 @@ from starlette.middleware.cors import CORSMiddleware  # noqa: E402
 
 from database import client, db  # noqa: E402
 from routers import auth, orders, products  # noqa: E402
-from seed import run_seed  # noqa: E402
+from seed import seed_products, seed_users  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
@@ -58,8 +58,12 @@ async def startup():
     await db.products.create_index("id", unique=True)
     await db.users.create_index("email", unique=True)
     await db.orders.create_index("order_id", unique=True)
-    await run_seed()
-    logger.info("Startup complete: indexes ensured, seed applied")
+    await seed_users()
+    if os.environ.get("SEED_PRODUCTS_ON_STARTUP", "false").strip().lower() == "true":
+        await seed_products()
+        logger.info("Startup complete: indexes ensured, product seed applied (SEED_PRODUCTS_ON_STARTUP=true)")
+    else:
+        logger.info("Startup complete: indexes ensured, product seeding skipped (SEED_PRODUCTS_ON_STARTUP is not true)")
 
 
 @app.on_event("shutdown")
