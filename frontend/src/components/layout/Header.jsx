@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Search, ShoppingBag, Wallet, X } from "lucide-react";
 import { BRAND, MEGA_MENU, NAV_LINKS } from "../../data/content";
 import { IMAGES } from "../../data/images";
 import { ImageSlot } from "../ImageSlot";
+import { useCart } from "../../context/CartContext";
+import { CART } from "../../constants/testIds/shop";
 
 const MegaMenu = ({ onNavigate }) => (
   <motion.div
@@ -20,13 +23,13 @@ const MegaMenu = ({ onNavigate }) => (
         <ul className="mt-5 space-y-3">
           {MEGA_MENU.categories.map((c) => (
             <li key={c.label}>
-              <a
-                href={c.href}
+              <Link
+                to="/shop"
                 onClick={onNavigate}
                 className="font-serif text-lg text-brand-charcoal transition-colors hover:text-brand-orange"
               >
                 {c.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -36,19 +39,19 @@ const MegaMenu = ({ onNavigate }) => (
         <ul className="mt-5 space-y-3">
           {MEGA_MENU.edits.map((c) => (
             <li key={c.label}>
-              <a
-                href={c.href}
+              <Link
+                to="/shop"
                 onClick={onNavigate}
                 className="text-sm text-brand-charcoal/80 transition-colors hover:text-brand-orange"
               >
                 {c.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
       <div className="col-span-2">
-        <a href={MEGA_MENU.featured.href} onClick={onNavigate} className="group block" data-testid="mega-menu-featured">
+        <Link to="/shop" onClick={onNavigate} className="group block" data-testid="mega-menu-featured">
           <ImageSlot
             name="mega-menu-featured"
             label={MEGA_MENU.featured.title}
@@ -62,7 +65,7 @@ const MegaMenu = ({ onNavigate }) => (
           <span className="mt-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-brand-orange">
             {MEGA_MENU.featured.cta} →
           </span>
-        </a>
+        </Link>
       </div>
     </div>
   </motion.div>
@@ -96,13 +99,13 @@ const MobileMenu = ({ open, onClose }) => (
           <ul className="mt-4 space-y-1">
             {MEGA_MENU.categories.map((c) => (
               <li key={c.label}>
-                <a
-                  href={c.href}
+                <Link
+                  to="/shop"
                   onClick={onClose}
                   className="block py-2.5 font-serif text-3xl text-brand-charcoal transition-colors hover:text-brand-orange"
                 >
                   {c.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -110,13 +113,13 @@ const MobileMenu = ({ open, onClose }) => (
           <ul className="space-y-1">
             {MEGA_MENU.edits.map((c) => (
               <li key={c.label}>
-                <a
-                  href={c.href}
+                <Link
+                  to="/shop"
                   onClick={onClose}
                   className="block py-2 text-base text-brand-charcoal/80 transition-colors hover:text-brand-orange"
                 >
                   {c.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -133,6 +136,8 @@ const MobileMenu = ({ open, onClose }) => (
 export const Header = () => {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { itemCount, openCart } = useCart();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -159,7 +164,10 @@ export const Header = () => {
                 type="button"
                 data-testid="mega-menu-trigger"
                 onMouseEnter={() => setMegaOpen(true)}
-                onClick={() => setMegaOpen((v) => !v)}
+                onClick={() => {
+                  setMegaOpen(false);
+                  navigate("/shop");
+                }}
                 className={`h-full text-[13px] font-semibold uppercase tracking-[0.18em] transition-colors ${
                   megaOpen ? "text-brand-orange" : "text-brand-charcoal hover:text-brand-orange"
                 }`}
@@ -179,14 +187,14 @@ export const Header = () => {
         </nav>
         <AnimatePresence>{megaOpen && <MegaMenu onNavigate={() => setMegaOpen(false)} />}</AnimatePresence>
 
-        <a
-          href="#top"
+        <Link
+          to="/"
           data-testid="header-logo"
           className="absolute left-1/2 -translate-x-1/2 text-center"
           aria-label="HESHAURA home"
         >
           <span className="font-serif text-xl tracking-[0.35em] text-brand-charcoal sm:text-2xl">{BRAND.name}</span>
-        </a>
+        </Link>
 
         <div className="flex items-center gap-1 sm:gap-2">
           <button
@@ -209,12 +217,18 @@ export const Header = () => {
             type="button"
             aria-label="Shopping bag"
             data-testid="bag-button"
+            onClick={openCart}
             className="relative flex h-10 w-10 items-center justify-center text-brand-charcoal transition-colors hover:text-brand-orange"
           >
             <ShoppingBag className="h-[18px] w-[18px]" />
-            <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-orange text-[9px] font-bold text-brand-cream">
-              0
-            </span>
+            {itemCount > 0 && (
+              <span
+                data-testid={CART.count}
+                className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-orange text-[9px] font-bold text-brand-cream"
+              >
+                {itemCount}
+              </span>
+            )}
           </button>
         </div>
       </div>
