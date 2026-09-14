@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { toast } from "sonner";
-import { BESTSELLERS, formatINR } from "../../data/content";
+import { BESTSELLERS, formatINR, MATERIAL_CATALOG } from "../../data/content";
 import { ProductCard } from "./ProductCard";
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
@@ -41,7 +41,11 @@ const QuickView = ({ product, onClose }) => (
               <X className="h-5 w-5" />
             </button>
           </div>
-          <p className="mt-3 text-sm text-brand-stone">{product.material}</p>
+          {product.materials?.length > 0 && (
+            <p className="mt-3 text-sm text-brand-stone" data-testid="quick-view-materials">
+              {product.materials.map((id) => MATERIAL_CATALOG[id]).filter(Boolean).join(" · ")}
+            </p>
+          )}
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-xl font-semibold text-brand-charcoal">{formatINR(product.price)}</span>
             <span className="text-sm text-brand-stone line-through">{formatINR(product.mrp)}</span>

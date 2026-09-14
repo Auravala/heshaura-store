@@ -77,7 +77,7 @@ export const BESTSELLERS = [
     name: "Solace Signet Ring",
     price: 4850,
     mrp: 7200,
-    material: "Sterling Silver · Gold Accents",
+    materials: [],
     stock: 6,
   },
   {
@@ -85,7 +85,7 @@ export const BESTSELLERS = [
     name: "Kinship Cuff Bangle",
     price: 6200,
     mrp: 8900,
-    material: "Hand-Finished Sterling Silver",
+    materials: [],
     stock: 4,
   },
   {
@@ -93,7 +93,7 @@ export const BESTSELLERS = [
     name: "Ethereal Chain Necklace",
     price: 9400,
     mrp: 12500,
-    material: "Gold Vermeil",
+    materials: [],
     stock: 3,
   },
   {
@@ -101,7 +101,7 @@ export const BESTSELLERS = [
     name: "Aura Drop Earrings",
     price: 3950,
     mrp: 5600,
-    material: "Sterling Silver · Citrine",
+    materials: [],
     stock: 8,
   },
 ];
@@ -156,23 +156,34 @@ export const CRAFT_STAGES = [
   },
 ];
 
+// Brand-level materials storytelling (shown in the Materials & Craft section).
+// These double as the assignable material catalog for products: a product only
+// displays a material when its id is explicitly listed in that product's
+// `materials` array — nothing is applied to products automatically.
+// Later accounts can manage these assignments from the Admin/CMS.
 export const MATERIALS = [
   {
+    id: "silver-925",
     title: "925 Sterling Silver",
     text: "A timeless, durable metal with a soft, luminous finish.",
   },
   {
+    id: "gold-accents",
     title: "Gold Accents",
     text: "Warm gold detailing, worked in small studio batches.",
   },
   {
+    id: "natural-gemstones",
     title: "Natural Gemstones",
     text: "Stones chosen for their colour, character and depth.",
   },
   {
+    id: "artisanal-studio",
     title: "Artisanal Studio",
     text: "Every piece is finished by hand, one bench at a time.",
   },
 ];
+
+export const MATERIAL_CATALOG = Object.fromEntries(MATERIALS.map((m) => [m.id, m.title]));
 
 export const formatINR = (n) => `₹${n.toLocaleString("en-IN")}`;

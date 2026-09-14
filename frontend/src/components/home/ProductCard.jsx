@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import { Eye, ShoppingBag } from "lucide-react";
-import { formatINR } from "../../data/content";
+import { formatINR, MATERIAL_CATALOG } from "../../data/content";
 import { IMAGES } from "../../data/images";
 import { ImageSlot } from "../ImageSlot";
 
@@ -48,7 +48,11 @@ export const ProductCard = ({ product, badge, onQuickView }) => {
         <h3 className="font-serif text-lg text-brand-charcoal transition-colors group-hover:text-brand-orange">
           {product.name}
         </h3>
-        {product.material && <p className="mt-1 text-xs text-brand-stone">{product.material}</p>}
+        {product.materials?.length > 0 && (
+          <p className="mt-1 text-xs text-brand-stone" data-testid="product-materials">
+            {product.materials.map((id) => MATERIAL_CATALOG[id]).filter(Boolean).join(" · ")}
+          </p>
+        )}
         <div className="mt-2 flex items-baseline gap-2">
           <span className="text-sm font-semibold text-brand-charcoal">{formatINR(product.price)}</span>
           {product.mrp && (
