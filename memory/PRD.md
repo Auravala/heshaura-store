@@ -1,28 +1,35 @@
-# HESHAURA — Product Requirements & Progress
+# HESHAURA Store — PRD
 
-**Brand:** HESHAURA — "A Piece of Soul. A Part of Your Aura."
-**Theme:** Orange #D7602B + Warm Off-White #F7F1E8 (light only, no dark mode/neon/glassmorphism)
-**Stack:** React (CRA + craco) + Tailwind + framer-motion + sonner; FastAPI backend untouched for now; MongoDB via env.
-**Working agreement:** Multi-account roadmap (Accounts 1–7). Deliver one account at a time. Content policy: NO unverified claims (no recycled/fair-trade/zero-waste/insured-shipping/artisan-hours claims). ₹333 only for referral wallet reward; 33% first-order offer allowed.
+## Original Problem Statement (Account 3 — FROZEN SPEC)
+Add a backend foundation to the existing Account 1+2 HESHAURA storefront (handmade jewellery, India, INR ₹): FastAPI + MongoDB, idempotent seed of Account 2 mock data 1:1, product APIs matching the frontend contract, customer auth (email+password, bcrypt, JWT 24h, /me), order foundation in `pending_payment` with Cashfree-ready integer-paise fields, and a frontend data-layer swap with zero visual diff. Out of scope: payments, checkout wiring, wishlist, admin/CMS, OTP, social login, refresh tokens, email/SMS, any redesign.
 
-## Implemented
+## Source
+Account 1+2 code imported from https://github.com/Auravala/heshaura-store @ cd98801 (verified: shop, PDP, filters, variants, cart, mock data present). Fix applied on import: removed `jsconfig.json` (react-scripts rejects tsconfig+jsconfig coexisting).
 
-### Account 1 — Design + Homepage (2026-06-13)
-- Frontend-only homepage, all sections: Announcement bar, sticky header, mega menu (full-width hover flyout), mobile drawer menu, Hero ("JEWELLERY WITH A SOUL." + 33% badge), Collections bento grid, Bestsellers (Quick View modal, Add to Bag toast), Manifesto, Craftsmanship (4 stages), Materials & Craft, New Arrivals, Wallet preview (₹333 card), Referral preview (copy link + toast), Gifting (note toggle), Our Story, Newsletter (toast), Footer (serif watermark).
-- Replaceable image system: `src/data/images.js` registry + `ImageSlot` placeholder component — drop real URLs into `src` fields later, no component changes needed.
-- All copy uses neutral premium handmade-jewellery language (unverified claims removed 2026-06-13).
-- TypeScript (tsc --noEmit) + `yarn build` production build both pass.
-- Fonts: Playfair Display (headings) + Plus Jakarta Sans (body).
+## Architecture
+- **Backend** (`/app/backend`): `server.py` (app, locked CORS via `CORS_ORIGINS`, `/api/health`, startup indexes + seed), `database.py` (motor client), `models.py` (Pydantic), `seed_data.py` (12 products + categories + seed users, exact mock copy), `seed.py` (idempotent `replace_one` upsert by slug; standalone + startup), `routers/products.py`, `routers/auth.py`, `routers/orders.py`.
+- **Frontend** (`/app/frontend`): `services/api.js` (fetchProducts/fetchProductBySlug, dev-only mock fallback), `context/AuthContext.jsx` (JWT in localStorage `heshaura_token_v1`), `pages/LoginPage.jsx`, `pages/RegisterPage.jsx`; edits only in `App.js` (routes/provider), `Header.jsx` (account state), `ShopPage.jsx` + `ProductPage.jsx` (data layer + loading/error), `constants/testIds/shop.js` (3 new ids).
+- **DB**: `products` (unique slug, id), `users` (unique email), `orders` (unique order_id).
+
+## User Personas
+- Guest: browses Shop/PDP without login; client-side cart.
+- Registered customer: register/login (JWT 24h); foundation for future checkout/orders.
+
+## Implemented (2026-09-14, Account 3)
+- Backend scaffold: structured routers, env config, CORS locked to known origins, `GET /api/health`.
+- Idempotent seed: 12 products, field-exact 1:1 parity with Account 2 mock (automated parity check PASS); re-runnable without duplication.
+- Product APIs: `GET /api/products` (category/flags/in_stock/max_price/sort, mirrors frontend filter+sort semantics, 400 on malformed), `GET /api/products/{slug}` (404 on unknown).
+- Auth: register (201/409), login (401), me (Bearer); bcrypt via passlib; JWT HS256 24h; emails lowercased.
+- Orders: `POST /api/orders` (validates products server-side, integer paise totals, `pending_payment`, Cashfree fields `payment.gateway/cf_order_id/gateway_ref`), `GET /api/orders/{order_id}`.
+- Frontend: live-API data layer with loading/error/retry states and dev-only mock fallback; `/login` + `/register` pages; minimal header account state (guest icon ↔ "Hi, <name>" + Logout). Zero visual diff confirmed by screenshots.
+- Test credentials in `/app/memory/test_credentials.md` (gitignored — never committed); seed-user passwords come from `SEED_OWNER_PASSWORD` / `SEED_CUSTOMER_PASSWORD` env vars in `backend/.env`.
+- Testing: 23/23 backend pytest + all frontend Playwright flows pass (`/app/test_reports/iteration_1.json`, `/app/backend/tests/backend_test.py`).
 
 ## Backlog
-- **P0 / Account 2:** /shop, collections, filters, sorting, predictive search, product detail pages, variants, size guide, wishlist frontend, related/recently viewed.
-- **P0 / Account 3:** Cart drawer, checkout, coupon engine, 33% first-order offer (min ₹999, max ₹500 off, zero-prior-orders only), Razorpay test-mode flow with server-side verification, COD off.
-- **P1 / Account 4:** Auth (method TBD), account/orders/addresses/wishlist, HESHAURA Wallet + ledger (pending/available/used/expired/reversed), referral program (₹333 after delivered + return window; anti self-referral/duplicates), server-side idempotent wallet math.
-- **P1 / Account 5:** Backend data models + Admin panel (dashboard, products, orders, customers, inventory, promotions, wallet liability, referrals, CMS, settings). Backend tech TBD (user deferred Supabase vs FastAPI+MongoDB decision).
-- **P2 / Account 6:** SEO, analytics events, WhatsApp notifications, legal pages, optional Sheets sync.
-- **P2 / Account 7:** Final QA/performance pass at 360–1440px.
+- **P0 (next account):** Cashfree payment integration; cart→order wiring; real checkout.
+- **P1:** Order history page for logged-in customers; password reset; refresh tokens; stock decrement on paid orders.
+- **P2:** Admin/CMS for products; wishlist; recently viewed; email/SMS notifications; image pipeline for real product photos (ImageSlot srcs are placeholders by design).
 
-## Next tasks
-1. Start Account 2 (shop + product) when user confirms.
-2. Decide backend stack before Account 5.
-3. Replace image placeholders with real HESHAURA photos via `src/data/images.js`.
+## Notes / Risks
+- Seed runs on every backend startup by design (idempotent; spec: "single source to rebuild DB"). Before real catalog edits live in DB, gate startup seeding behind an env flag.
+- Dev fallback masks API outages in dev/preview (per confirmed decision); off in production builds.

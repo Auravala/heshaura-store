@@ -15,7 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CATEGORIES, PRODUCTS, priceBounds } from "../data/products";
+import { CATEGORIES, priceBounds } from "../data/products";
+import { fetchProducts } from "../services/api";
 import { formatINR } from "../data/content";
 import { SHOP } from "../constants/testIds/shop";
 
@@ -132,6 +133,22 @@ export default function ShopPage() {
   const [inStock, setInStock] = useState(false);
   const [price, setPrice] = useState([bounds.max]);
   const [sort, setSort] = useState("featured");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+
+  const loadProducts = () => {
+    setLoading(true);
+    fetchProducts()
+      .then((list) => {
+        setProducts(list);
+        setLoadError("");
+      })
+      .catch(() => setLoadError("We couldn't load the collection right now."))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(loadProducts, []);
 
   useEffect(() => {
     const cat = searchParams.get("category");
@@ -150,7 +167,7 @@ export default function ShopPage() {
   };
 
   const results = useMemo(() => {
-    let list = PRODUCTS.filter((p) => {
+    let list = products.filter((p) => {
       if (categories.length && !categories.includes(p.category)) return false;
       if (flags.length && !flags.every((f) => p.flags?.[f])) return false;
       if (inStock && p.stock <= 0) return false;
@@ -172,7 +189,7 @@ export default function ShopPage() {
         list = [...list].sort((a, b) => Number(b.flags?.featured) - Number(a.flags?.featured));
     }
     return list;
-  }, [categories, flags, inStock, price, sort]);
+  }, [products, categories, flags, inStock, price, sort]);
 
   const filterProps = {
     categories,
@@ -255,7 +272,23 @@ export default function ShopPage() {
               </div>
 
               {/* Grid */}
-              {results.length === 0 ? (
+              {loading ? (
+                <div className="py-24 text-center" data-testid={SHOP.loading}>
+                  <p className="font-serif text-2xl text-brand-charcoal">Loading the collection…</p>
+                </div>
+              ) : loadError ? (
+                <div className="py-24 text-center" data-testid={SHOP.error}>
+                  <p className="font-serif text-2xl text-brand-charcoal">{loadError}</p>
+                  <button
+                    type="button"
+                    onClick={loadProducts}
+                    data-testid={SHOP.retry}
+                    className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-orange underline-offset-4 hover:underline"
+                  >
+                    Try again
+                  </button>
+                </div>
+              ) : results.length === 0 ? (
                 <div className="py-24 text-center" data-testid={SHOP.empty}>
                   <p className="font-serif text-2xl text-brand-charcoal">Nothing matches those filters.</p>
                   <button

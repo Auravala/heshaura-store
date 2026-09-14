@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Search, ShoppingBag, Wallet, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, User, Wallet, X } from "lucide-react";
 import { BRAND, MEGA_MENU, NAV_LINKS } from "../../data/content";
 import { IMAGES } from "../../data/images";
 import { ImageSlot } from "../ImageSlot";
 import { useCart } from "../../context/CartContext";
 import { CART } from "../../constants/testIds/shop";
+import { LOGOUT } from "../../constants/testIds/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const MegaMenu = ({ onNavigate }) => (
   <motion.div
@@ -137,6 +139,7 @@ export const Header = () => {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { itemCount, openCart } = useCart();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -197,6 +200,30 @@ export const Header = () => {
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-2">
+          {user ? (
+            <span className="hidden items-center gap-2 sm:flex" data-testid="header-account-state">
+              <span className="text-xs font-semibold text-brand-charcoal" data-testid="header-account-name">
+                Hi, {(user.name || "there").split(" ")[0]}
+              </span>
+              <button
+                type="button"
+                onClick={logout}
+                data-testid={LOGOUT.button}
+                className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-stone transition-colors hover:text-brand-orange"
+              >
+                Logout
+              </button>
+            </span>
+          ) : (
+            <Link
+              to="/login"
+              aria-label="Account"
+              data-testid="header-account-link"
+              className="flex h-10 w-10 items-center justify-center text-brand-charcoal transition-colors hover:text-brand-orange"
+            >
+              <User className="h-[18px] w-[18px]" />
+            </Link>
+          )}
           <button
             type="button"
             aria-label="Search"

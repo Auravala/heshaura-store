@@ -15,6 +15,9 @@ export const SHOP = {
   clearFilters: "shop-clear-filters",
   resultCount: "shop-result-count",
   empty: "shop-empty-state",
+  loading: "shop-loading-state",
+  error: "shop-error-state",
+  retry: "shop-retry-button",
 };
 
 export const PDP = {

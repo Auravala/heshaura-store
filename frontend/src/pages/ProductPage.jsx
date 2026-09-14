@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { ChevronRight, Minus, Plus, ShieldCheck, ShoppingBag, Truck } from "lucide-react";
@@ -9,12 +9,44 @@ import { ShopProductCard } from "../components/shop/ShopProductCard";
 import { Overline } from "../components/SectionHeading";
 import { Reveal } from "../components/Reveal";
 import { ImageSlot } from "../components/ImageSlot";
-import { getProductBySlug, PRODUCTS, CATEGORY_LABEL } from "../data/products";
+import { CATEGORY_LABEL } from "../data/products";
+import { fetchProductBySlug, fetchProducts } from "../services/api";
 import { getProductImage } from "../data/images";
 import { formatINR } from "../data/content";
 import { POLICIES, NON_AUTHORITATIVE_NOTE } from "../data/policies";
 import { useCart } from "../context/CartContext";
 import { PDP } from "../constants/testIds/shop";
+
+const Loading = () => (
+  <div className="min-h-screen bg-brand-cream font-sans text-brand-charcoal" data-testid="pdp-loading">
+    <AnnouncementBar />
+    <Header />
+    <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-32 text-center">
+      <p className="font-serif text-4xl text-brand-charcoal">Loading the piece…</p>
+    </div>
+    <Footer />
+  </div>
+);
+
+const LoadError = ({ onRetry }) => (
+  <div className="min-h-screen bg-brand-cream font-sans text-brand-charcoal" data-testid="pdp-error">
+    <AnnouncementBar />
+    <Header />
+    <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-32 text-center">
+      <p className="font-serif text-4xl text-brand-charcoal">Something went wrong</p>
+      <p className="mt-4 text-brand-stone">We couldn't load this piece right now.</p>
+      <button
+        type="button"
+        onClick={onRetry}
+        data-testid="pdp-retry-button"
+        className="mt-8 bg-brand-charcoal px-8 py-4 text-xs font-semibold uppercase tracking-[0.15em] text-brand-cream transition-colors hover:bg-brand-orange"
+      >
+        Try again
+      </button>
+    </div>
+    <Footer />
+  </div>
+);
 
 const NotFound = () => (
   <div className="min-h-screen bg-brand-cream font-sans text-brand-charcoal">
@@ -36,11 +68,40 @@ const NotFound = () => (
 
 export default function ProductPage() {
   const { slug } = useParams();
-  const product = getProductBySlug(slug);
   const { addItem, openCart } = useCart();
+  const [product, setProduct] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
   const [selections, setSelections] = useState({});
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setLoadError("");
+    setProduct(null);
+    Promise.all([fetchProductBySlug(slug), fetchProducts().catch(() => [])])
+      .then(([p, list]) => {
+        if (!active) return;
+        setProduct(p);
+        setAllProducts(list);
+      })
+      .catch((err) => {
+        if (!active) return;
+        if (err?.response?.status !== 404) {
+          setLoadError("We couldn't load this piece right now.");
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [slug, reloadKey]);
 
   const hasVariants = Array.isArray(product?.variants) && product.variants.length > 0;
   const soldOut = product ? product.stock <= 0 : true;
@@ -50,12 +111,14 @@ export default function ProductPage() {
     [selections],
   );
 
+  if (loading) return <Loading />;
+  if (loadError) return <LoadError onRetry={() => setReloadKey((k) => k + 1)} />;
   if (!product) return <NotFound />;
 
   const img = getProductImage(product.image, product.name);
   const effectivePrice = product.price + priceDelta;
   const savings = product.mrp ? product.mrp - product.price : 0;
-  const related = PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3);
+  const related = allProducts.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3);
 
   const selectOption = (variant, option) => {
     if (option.stock === 0) return;
