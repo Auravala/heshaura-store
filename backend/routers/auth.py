@@ -28,7 +28,12 @@ def create_access_token(user_id: str, email: str) -> str:
 
 
 def public_user(user) -> UserPublic:
-    return UserPublic(id=str(user["_id"]), name=user.get("name", ""), email=user["email"])
+    return UserPublic(
+        id=str(user["_id"]),
+        name=user.get("name", ""),
+        email=user["email"],
+        role=user.get("role", "customer"),
+    )
 
 
 async def get_current_user(

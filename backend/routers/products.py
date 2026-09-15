@@ -35,7 +35,7 @@ async def list_products(
     if bad_flags:
         raise HTTPException(status_code=400, detail=f"Unknown flag: {', '.join(bad_flags)}")
 
-    docs = await db.products.find({}, PROJECTION).to_list(1000)
+    docs = await db.products.find({"published": {"$ne": False}}, PROJECTION).to_list(1000)
 
     results = []
     for p in docs:
@@ -63,7 +63,7 @@ async def list_products(
 
 @router.get("/{slug}", response_model=Product, response_model_exclude_none=True)
 async def get_product_by_slug(slug: str):
-    doc = await db.products.find_one({"slug": slug}, PROJECTION)
+    doc = await db.products.find_one({"slug": slug, "published": {"$ne": False}}, PROJECTION)
     if not doc:
         raise HTTPException(status_code=404, detail="Product not found")
     return doc

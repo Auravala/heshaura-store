@@ -55,5 +55,14 @@ export const IMAGES = {
 };
 
 // Resolve a product image slot by product slug/key, with a graceful fallback.
-export const getProductImage = (key, fallbackAlt = "HESHAURA product") =>
-  IMAGES.products[key] || { src: null, alt: fallbackAlt };
+export const getProductImage = (key, fallbackAlt = "HESHAURA product") => {
+  const entry = IMAGES.products[key];
+  if (entry) return entry;
+  // Catalog images stored in object storage (key = storage path) are served
+  // through the backend file route.
+  if (typeof key === "string" && key.length > 0) {
+    const encoded = key.split("/").map(encodeURIComponent).join("/");
+    return { src: `${process.env.REACT_APP_BACKEND_URL}/api/files/${encoded}`, alt: fallbackAlt };
+  }
+  return { src: null, alt: fallbackAlt };
+};

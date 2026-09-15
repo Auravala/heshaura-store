@@ -19,6 +19,8 @@ async def create_order(body: OrderCreate):
         product = await db.products.find_one({"slug": item.slug}, {"_id": 0})
         if not product:
             raise HTTPException(status_code=400, detail=f"Unknown product: {item.slug}")
+        if product.get("published") is False or product.get("price") is None:
+            raise HTTPException(status_code=400, detail=f"Product unavailable: {item.slug}")
         unit_price_paise = int(product["price"]) * 100
         line_total_paise = unit_price_paise * item.qty
         total_paise += line_total_paise

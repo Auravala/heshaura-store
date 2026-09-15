@@ -75,6 +75,7 @@ export default function ProductPage() {
   const [loadError, setLoadError] = useState("");
   const [reloadKey, setReloadKey] = useState(0);
   const [selections, setSelections] = useState({});
+  const [activeImage, setActiveImage] = useState(null);
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
 
@@ -88,6 +89,7 @@ export default function ProductPage() {
         if (!active) return;
         setProduct(p);
         setAllProducts(list);
+        setActiveImage(null);
       })
       .catch((err) => {
         if (!active) return;
@@ -116,6 +118,7 @@ export default function ProductPage() {
   if (!product) return <NotFound />;
 
   const img = getProductImage(product.image, product.name);
+  const gallery = Array.isArray(product.images) && product.images.length > 0 ? product.images : null;
   const effectivePrice = product.price + priceDelta;
   const savings = product.mrp ? product.mrp - product.price : 0;
   const related = allProducts.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 3);
@@ -164,18 +167,47 @@ export default function ProductPage() {
           <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
             {/* Gallery */}
             <div data-testid={PDP.gallery}>
-              <ImageSlot name={`pdp-${product.slug}`} label={product.name} src={img.src} alt={img.alt} ratio="aspect-[4/5]" />
+              <ImageSlot
+                name={`pdp-${product.slug}`}
+                label={product.name}
+                src={gallery ? getProductImage(activeImage || product.image, product.name).src : img.src}
+                alt={img.alt}
+                ratio="aspect-[4/5]"
+              />
               <div className="mt-4 grid grid-cols-4 gap-4">
-                {[0, 1, 2, 3].map((n) => (
-                  <ImageSlot
-                    key={n}
-                    name={`pdp-${product.slug}-thumb-${n}`}
-                    label={`View ${n + 1}`}
-                    src={img.src}
-                    alt={`${product.name} view ${n + 1}`}
-                    ratio="aspect-square"
-                  />
-                ))}
+                {gallery
+                  ? gallery.map((path, n) => (
+                      <button
+                        key={path}
+                        type="button"
+                        onClick={() => setActiveImage(path)}
+                        data-testid={`pdp-thumb-${n}`}
+                        aria-label={`${product.name} view ${n + 1}`}
+                        className={`transition-opacity ${
+                          activeImage === path || (!activeImage && n === 0)
+                            ? "opacity-100 ring-1 ring-brand-orange"
+                            : "opacity-70 hover:opacity-100"
+                        }`}
+                      >
+                        <ImageSlot
+                          name={`pdp-${product.slug}-thumb-${n}`}
+                          label={`View ${n + 1}`}
+                          src={getProductImage(path, product.name).src}
+                          alt={`${product.name} view ${n + 1}`}
+                          ratio="aspect-square"
+                        />
+                      </button>
+                    ))
+                  : [0, 1, 2, 3].map((n) => (
+                      <ImageSlot
+                        key={n}
+                        name={`pdp-${product.slug}-thumb-${n}`}
+                        label={`View ${n + 1}`}
+                        src={img.src}
+                        alt={`${product.name} view ${n + 1}`}
+                        ratio="aspect-square"
+                      />
+                    ))}
               </div>
             </div>
 

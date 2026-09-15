@@ -216,6 +216,98 @@ PRODUCTS = [
 # Passwords are read from env at seed time (SEED_OWNER_PASSWORD /
 # SEED_CUSTOMER_PASSWORD); a user is skipped when its env var is unset.
 SEED_USERS = [
-    {"name": "Shaiilesh Vala", "email": "shaiileshvala@gmail.com", "password_env": "SEED_OWNER_PASSWORD"},
-    {"name": "Test Customer", "email": "customer@heshaura.in", "password_env": "SEED_CUSTOMER_PASSWORD"},
+    {"name": "Shaiilesh Vala", "email": "shaiileshvala@gmail.com", "password_env": "SEED_OWNER_PASSWORD", "role": "admin"},
+    {"name": "Test Customer", "email": "customer@heshaura.in", "password_env": "SEED_CUSTOMER_PASSWORD", "role": "customer"},
+]
+
+
+def _draft(slug: str, name: str, category: str, filenames: list, created_at: int) -> dict:
+    # image_files are the ordered original filenames (main, angle, close-up, wrist)
+    # used once at seed time to upload to object storage; images/image stay empty
+    # until that upload runs so admin edits are never overwritten by re-seeding.
+    return {
+        "id": f"p-{slug}",
+        "slug": slug,
+        "name": name,
+        "price": None,
+        "mrp": None,
+        "stock": None,
+        "flags": {"featured": False, "bestseller": False, "newArrival": False},
+        "category": category,
+        "image": "",
+        "images": [],
+        "image_files": filenames,
+        "materials": [],
+        "createdAt": created_at,
+        "published": False,
+    }
+
+
+# Account 4 draft catalog — unpublished until price/stock are set via Admin Panel.
+# Image order: main/front, angle, close-up, wrist (verified visually).
+DRAFT_PRODUCTS = [
+    _draft("aqua-star-charm-bracelet", "Aqua Star Charm Bracelet", "charm", [
+        "Aqua Star Charm Bracelet 4.png",
+        "Aqua Star Charm Bracelet 2.png",
+        "Aqua Star Charm Bracelet 3.png",
+    ], 20),
+    _draft("celestia-silver-bracelet", "Celestia Silver Bracelet", "charm", [
+        "Celestia Silver Bracelet 1.png",
+        "Celestia Silver Bracelet 2.png",
+        "Celestia Silver Bracelet 3.png",
+        "Celestia Silver Bracelet 4.png",
+    ], 21),
+    _draft("evergreen-daisy-bracelet", "Evergreen Daisy Bracelet", "charm", [
+        "Emerald Daisy Charm Bracelet 2.png",
+        "Emerald Daisy Charm Bracelet 1.png",
+        "Emerald Daisy Charm Bracelet 3.png",
+        "Evergreen Daisy Bracelet.png",
+    ], 22),
+    _draft("lunara-heart-tennis-bracelet", "Lunara Heart Tennis Bracelet", "charm", [
+        "Lunara Heart Tennis Bracelet 3.png",
+        "Lunara Heart Tennis Bracelet 2.png",
+        "Lunara Heart Tennis Bracelet 4.png",
+        "Lunara Heart Tennis Bracelet 1.png",
+    ], 23),
+    _draft("mystic-unicorn-bead-bracelet", "Mystic Unicorn Bead Bracelet", "beaded", [
+        "Mystic Unicorn Bead Bracelet 1.png",
+        "Mystic Unicorn Bead Bracelet 2.png",
+        "Mystic Unicorn Bead Bracelet 3.png",
+        "Mystic Unicorn Bead Bracelet 4.png",
+    ], 24),
+    _draft("olive-crown-charm-bracelet", "Olive Crown Charm Bracelet", "charm", [
+        "Olive Crown Charm Bracelet 3.png",
+        "Olive Crown Charm Bracelet 1.png",
+        "Olive Crown Charm Bracelet 2.png",
+        "Olive Crown Charm Bracelet 4.png",
+    ], 25),
+    _draft("pink-princess-unicorn-bracelet", "Pink Princess Unicorn Bracelet", "beaded", [
+        "Pink Princess Unicorn Bracelet 3.png",
+        "Pink Princess Unicorn Bracelet 4.png",
+        "Pink Princess Unicorn Bracelet.png",
+        "Pink Princess Unicorn Bracelet 2.png",
+    ], 26),
+    _draft("rosella-dream-bracelet", "Rosella Dream Bracelet", "charm", [
+        "Rosella Dream Bracelet 1.png",
+        "Rosella Dream Bracelet 2.png",
+        "Rosella Dream Bracelet 4.png",
+        "Rosella Dream Bracelet 3.png",
+    ], 27),
+    _draft("seafoam-leaf-bracelet", "Seafoam Leaf Bracelet", "charm", [
+        "Seafoam Leaf Bracelet 3.png",
+        "Seafoam Leaf Bracelet 2.png",
+        "Seafoam Leaf Bracelet 1.png",
+    ], 28),
+    _draft("silver-bell-cluster-bracelet", "Silver Bell Cluster Bracelet", "thread", [
+        "Silver Bell Cluster Bracelet.png",
+        "Silver Bell Cluster Bracelet 1.png",
+        "Silver Bell Cluster Bracelet 3.png",
+        "Silver Bell Cluster Bracelet 4.png",
+    ], 29),
+    _draft("tiger-evileye-bracelet", "Tiger EvilEye Bracelet", "evil-eye", [
+        "Tiger EvilEye Bracelet.png",
+        "Tiger EvilEye Bracelet 2.png",
+        "Tiger EvilEye Bracelet 3.png",
+        "Tiger EvilEye Bracelet 4.png",
+    ], 30),
 ]

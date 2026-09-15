@@ -6,6 +6,8 @@ import ShopPage from "@/pages/ShopPage";
 import ProductPage from "@/pages/ProductPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
+import AdminProductsPage from "@/pages/AdminProductsPage";
+import AdminProductEditPage from "@/pages/AdminProductEditPage";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
@@ -22,6 +24,8 @@ function App() {
               <Route path="/product/:slug" element={<ProductPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/admin" element={<AdminProductsPage />} />
+              <Route path="/admin/products/:slug" element={<AdminProductEditPage />} />
             </Routes>
             <CartDrawer />
           </CartProvider>

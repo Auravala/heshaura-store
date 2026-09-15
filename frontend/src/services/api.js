@@ -29,3 +29,33 @@ export const fetchProductBySlug = async (slug) => {
     throw err;
   }
 };
+
+const TOKEN_KEY = "heshaura_token_v1";
+const authHeaders = () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+export const adminListProducts = async () =>
+  (await axios.get(`${API}/admin/products`, { headers: authHeaders() })).data;
+
+export const adminUpdateProduct = async (slug, body) =>
+  (await axios.patch(`${API}/admin/products/${encodeURIComponent(slug)}`, body, { headers: authHeaders() })).data;
+
+export const adminUploadImage = async (slug, file) => {
+  const form = new FormData();
+  form.append("file", file);
+  return (await axios.post(`${API}/admin/products/${encodeURIComponent(slug)}/images`, form, { headers: authHeaders() })).data;
+};
+
+export const adminReplaceImage = async (slug, index, file) => {
+  const form = new FormData();
+  form.append("file", file);
+  return (await axios.post(`${API}/admin/products/${encodeURIComponent(slug)}/images/${index}/replace`, form, { headers: authHeaders() })).data;
+};
+
+export const adminDeleteImage = async (slug, index) =>
+  (await axios.delete(`${API}/admin/products/${encodeURIComponent(slug)}/images/${index}`, { headers: authHeaders() })).data;
+
+export const adminReorderImages = async (slug, images) =>
+  (await axios.post(`${API}/admin/products/${encodeURIComponent(slug)}/images/reorder`, { images }, { headers: authHeaders() })).data;
